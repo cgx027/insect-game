@@ -2,16 +2,18 @@ from dataclasses import dataclass
 from time import sleep
 import pygame
 
-from .insects.ladybug import Ladybug
+from insects.ladybug import Ladybug
+from objects.image_object import ImageObject
 
+def draw_background(screen: pygame.Surface):
+    screen.fill([255, 255, 255])
 
 def run():
     pygame.init()
     pygame.key.set_repeat(10, 15)
     screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)
-    screen.fill([255, 255, 255])
 
-    lady_bug = Ladybug(screen)
+    player1 = ImageObject(screen, "asserts/ladybug.png", 320, 240)
 
     running = True
     while running:
@@ -21,20 +23,24 @@ def run():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    lady_bug.move_delta(10, 0)
+                    player1.move_delta(10, 0)
                 if event.key == pygame.K_LEFT:
-                    lady_bug.move_delta(-10, 0)
+                    player1.move_delta(-10, 0)
                 if event.key == pygame.K_DOWN:
-                    lady_bug.move_delta(0, 10)
+                    player1.move_delta(0, 10)
                 if event.key == pygame.K_UP:
-                    lady_bug.move_delta(0, -10)
+                    player1.move_delta(0, -10)
 
                 if event.key == pygame.K_ESCAPE:
                     running = False
 
             if event.type == pygame.MOUSEMOTION:
                 mx, my = event.pos
-                lady_bug.move_to(mx, my)
+                player1.move_to(mx, my)
+            
+            draw_background(screen)
+            player1.draw()
+            pygame.display.flip()
 
     pygame.quit()
 

@@ -1,12 +1,9 @@
 from dataclasses import dataclass, field
-from typing import Any
 import pygame
-
-from objects.image_object import ImageObject
 
 
 @dataclass
-class Ladybug(ImageObject):
+class ImageObject:
     screen: pygame.Surface
     img_path: str
     x: int
